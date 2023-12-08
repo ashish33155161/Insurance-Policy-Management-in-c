@@ -1,0 +1,184 @@
+#include <stdio.h>
+
+
+void handleAdministrativeRights() {
+    // Code to handle administrative tasks
+    printf("Welcome, Administrator!\n");
+    // Add your code here for administrative tasks
+}
+
+// Function to handle customer rights
+void handleCustomerRights() {
+    // Code to handle customer tasks
+    printf("Welcome, Customer!\n");
+    // Add your code here for customer tasks
+}
+// Structure for Customer Details
+struct Customer {
+    char name[50];
+    int age;
+    char address[100];
+};
+// Structure for Nominee Details
+struct Nominee {
+    char name[50];
+    int age;
+    char relationship[50];
+};
+// Function to add Customer Details
+void addCustomerDetails(struct Customer *customer) {
+    printf("Enter Customer Name: ");
+    scanf("%s", &customer->name);
+    printf("Enter Customer Age: ");
+    scanf("%d", &customer->age);
+    printf("Enter Customer Address: ");
+    scanf("%s", &customer->address);
+}
+
+// Function to add Nominee Details
+void addNomineeDetails(struct Nominee *nominee) {
+    printf("Enter Nominee Name: ");
+    scanf("%s", &nominee->name);
+    printf("Enter Nominee Age: ");
+    scanf("%d", &nominee->age);
+    printf("Enter Nominee Relationship: ");
+    scanf("%s", &nominee->relationship);
+}
+// Function for Life Insurance Policy
+void lifeInsurancePolicy() {  
+    struct Customer customer;
+    struct Nominee nominee1, nominee2;
+    
+    addCustomerDetails(&customer);
+    
+    printf("Add Details for 1st Nominee:\n");
+    addNomineeDetails(&nominee1);
+    
+    printf("Add Details for 2nd Nominee:\n");
+    addNomineeDetails(&nominee2); 
+    // Calculate Insurance Amount
+    int investment;
+    printf("Enter Investment Amount per Year: ");
+    scanf("%d", &investment);
+    int insuredamount = investment * 1000;
+    int maturityamount = insuredamount / 2;
+    
+    printf("Insured Amount: Rs %d\n", insuredamount);
+    printf("Maturity Amount after 30 years: Rs %d\n", maturityamount);
+}
+// Function for Term Insurance Policy
+void termInsurancePolicy() {
+    struct Customer customer;
+    struct Nominee nominee;
+
+    addCustomerDetails(&customer);
+
+    addNomineeDetails(&nominee);
+    // Calculate Interest Rate
+    int investment;
+    printf("Enter Investment Amount: ");
+    scanf("%d", &investment);
+    int interestrate;
+    if (investment <= 5) {
+        interestrate = 10;
+    } else if (investment <= 10) {
+        interestrate = 15;
+    } else if (investment <= 20) {
+        interestrate = 20;
+    } else {
+        interestrate = 25;
+    }
+    printf("Interest Rate: %d%%\n", interestrate);
+}
+// Function for Vehicle Insurance Policy
+void vehicleInsurancePolicy() {
+    
+    // Calculate vehicle insurance
+    int vehicletype;
+    printf("Enter Vehicle Type \n1 for Two-Wheeler, \n2 for Four-Wheeler ");
+    scanf("%d", &vehicletype);
+    int insuranceamount;
+    if (vehicletype == 1) {
+        insuranceamount = 1500;
+    } else if (vehicletype == 2) {
+        insuranceamount = 3000;
+    } else {
+        printf("Invalid Vehicle Type\n");
+        return;
+    }    
+    printf("Insurance Amount per Year: Rs %d\n", insuranceamount);
+    int totalvehiclevalue;
+    printf("Enter Total Value of Vehicle: ");
+    scanf("%d", &totalvehiclevalue);   
+    float damageamount = totalvehiclevalue * 0.05;
+    float depreciation = totalvehiclevalue * 0.2;  
+    printf("Amount Insured for Vehicle Damage: Rs %.2f\n", damageamount);
+    printf("Depreciation Amount: Rs %.2f\n", depreciation);
+    struct Customer customer;
+    addCustomerDetails(&customer);
+}
+// Function for Health Insurance Policy
+void healthInsurancePolicy() {
+    int passtype;
+    printf("Enter Pass Type (1 for Gold Pass, \n2 for Platinum Pass): ");
+    scanf("%d", &passtype);
+    
+    int passamount;
+    if (passtype == 1) {
+        passamount = 500;
+    } else if (passtype == 2) {
+        passamount = 1000;
+    } else {
+        printf("Invalid Pass Type\n");
+        return;
+    }
+    
+    printf("Pass Amount per Year: Rs %d\n", passamount);
+    
+    int coverageamount;
+    if (passtype == 1) {
+        coverageamount = 100000;
+    } else {
+        coverageamount = 500000;
+    }
+    
+    printf("Coverage Amount: Rs %d\n", coverageamount);
+    struct Customer customer;
+    addCustomerDetails(&customer);
+}
+
+int main() { 
+    int choice;
+    printf("\n1:Customer Rights, \n2:Administrative Rights");
+    printf("\nSelect the two options from the above.....");
+    scanf("%d", &choice);
+    if (choice==1){
+         handleCustomerRights();
+        int policyType;
+    printf("Enter Policy Type \n1 for Life Insurance, \n2 for Term Insurance, \n3 for Vehicle Insurance, \n4 for Health Insurance ");
+    printf("\nSelect policies from the given options....");
+    scanf("%d", &policyType);
+    
+    switch (policyType) {
+        case 1:
+            lifeInsurancePolicy();
+            break;
+        case 2:
+            termInsurancePolicy();
+            break;
+        case 3:
+            vehicleInsurancePolicy();
+            break;
+        case 4:
+            healthInsurancePolicy();
+            break;
+        default:
+            printf("Invalid Policy Type\n");
+            break;
+    }
+    }
+    else{
+        handleAdministrativeRights();
+    }   
+    return 0;
+}
