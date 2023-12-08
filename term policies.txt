@@ -1,0 +1,114 @@
+#include <stdio.h>
+
+// Define structure to store term policy and customer details
+struct CustomertermPolicy {
+   // struct Customer customer;
+    char customername[50];
+    int customerage;
+    long int customerphonenumber[10];
+    char customeraddress[120];
+    float investedAmount;
+    int yearsInvested;
+};
+
+// Function to calculate compound interest based on policy rules
+float calculateInterest(float amount, int years)
+{
+    float rate;
+    
+    if (years <= 5) {
+        rate = 0.10;
+    }
+    else if (years <= 10) {
+        rate = 0.15;
+    }
+    else if (years <= 20) {
+        rate = 0.20;
+    }
+    else {
+        rate = 0.25;
+    }
+
+    // Compound interest formula
+    float CI = amount * rate;
+    return CI;
+}
+
+int main() {
+    printf("\n\t\t\t\t****************\n");
+    printf("\033[1m");  // Start bold text
+    printf("\t\t\t\t TERM INSURANCE \n");
+    printf("\033[0m");  // Reset text formatting
+    printf("\t\t\t\t****************\n");
+    // Create a term policy object
+    struct CustomertermPolicy policy;
+
+    // Input customer details
+    printf("Enter customer name: ");
+    scanf("%s", policy.customername);
+
+    printf("Enter customer age: ");
+    scanf("%d", &policy.customerage);
+    
+    printf("Enter customer Phone Number: ");
+    scanf("%ld", policy.customerphonenumber);
+    
+    printf("Enter customer address: ");
+    scanf("%s", policy.customeraddress);
+
+    // Input investment details
+    printf("\nEnter invested amount: ");
+    scanf("%f", &policy.investedAmount);
+
+    printf("Enter years invested: ");
+    scanf("%d", &policy.yearsInvested);
+
+    
+    // Calculate and display compound interest
+    float ci = calculateInterest(policy.investedAmount, policy.yearsInvested);
+    printf("\nCompound Interest: %.2f\n", ci);
+    
+    //Adding the compund interest value to the invested amount
+    //int *p;
+     //p = &policy.investedAmount;
+    //*p = policy.investedAmount;
+    //*p = policy.investedAmount + interest;
+    double newamount = policy.investedAmount + ci;
+    printf("Total amount at the end of the year (without penalty) is: %0.2f",newamount);
+    
+        // Check if withdrawal is allowed
+    if (policy.yearsInvested < 5) {
+        // Penalty for withdrawal before 5 years
+        printf("\n\nPenalty: 5%% of the total amount will be charged.\n");
+        newamount -= (0.05 * newamount);
+    }
+    else if (policy.yearsInvested < 10) {
+        // Penalty for withdrawal before 10 years
+        printf("\n\nPenalty: 2.5%% of the total amount will be charged.\n");
+        newamount -= (0.025 * newamount);
+    }
+    else 
+        {
+            printf("No withdrawal charges after 10 years.\n");
+        }
+
+
+    // Display balance sheet
+    printf("\n\n__________________________________________________________");
+    printf("\nBalance Sheet:\n");
+    printf("Customer Name: %s\n", policy.customername);
+    printf("Customer Age: %d\n", policy.customerage);
+    printf("Customer Phone Number: %ln\n", policy.customerphonenumber);
+    printf("Customer Address: %s\n", policy.customeraddress);
+    printf("Invested Amount: %.2f\n", policy.investedAmount);
+    printf("Years Invested: %d\n", policy.yearsInvested);
+    printf("Total Amount at the end of the year: %.2f",newamount);
+    printf("\n__________________________________________________________");
+    printf("\033[1m");  // Start bold text
+    printf("\n\nReminder:");
+    printf("The due date for your Life policy is approaching, %s! Please submit your payment on time. Contact: 9027693613",policy.customername);
+    printf("\033[0m");  // Reset text formatting
+
+    
+    return 0;
+}
